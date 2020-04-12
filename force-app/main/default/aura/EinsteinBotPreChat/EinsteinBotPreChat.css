@@ -1,0 +1,14 @@
+.THIS.slds-spinner_container {  
+  z-index: 10000;
+  position: fixed;   
+}
+.THIS.prechat-input{
+    width: 75%;
+    padding: 2%;
+    margin: 2%;
+}
+.THIS.startChatButton{
+    color: white;
+    background-color: rgb(0, 127, 163);
+    margin-top: 20%;
+}

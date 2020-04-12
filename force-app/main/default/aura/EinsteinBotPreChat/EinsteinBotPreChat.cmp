@@ -1,0 +1,41 @@
+<aura:component implements="lightningsnapin:prechatUI" controller="EinsteinBotPreChatController" description="Custom pre-chat component for Snap-ins. Implemented using Aura.">
+
+    <!-- Pre-chat field components to render -->
+    <aura:attribute name="prechatFieldComponents" type="List" description="An array of objects representing the pre-chat fields specified in pre-chat setup."/>
+    <aura:attribute name="LoggedInUser" type="Object"/>
+    <aura:attribute name="Spinner" type="boolean" default="true"/>
+    <!-- Handler for when this component is initialized -->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+
+    <!-- For Aura performance -->
+    <aura:locator target="startButton" description="Pre-chat form submit button."/>
+    
+    <!-- Contains methods for getting pre-chat fields, starting a chat, and validating fields -->
+    <lightningsnapin:prechatAPI aura:id="prechatAPI"/>
+    
+    <!--loading spinner start... style=Brand Medium (blue dots)-->
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+        <aura:set attribute="else">
+            <h2>Prechat form</h2>
+            <div class="prechatUI">
+                <div class="prechatContent">
+                    <ul class="fieldsList">
+                        <!-- Look in the controller's onInit function. This component dynamically creates the pre-chat field components -->
+                        {!v.prechatFieldComponents}
+                    </ul>
+                </div>
+                <div class="startButtonWrapper">
+                    <ui:button aura:id="startButton" class="startButton" label="{!$Label.LiveAgentPrechat.StartChat}" press="{!c.handleStartButtonClick}"/>
+                </div>
+            </div>
+        </aura:set>
+    </aura:if>
+    <!-- Loading spinner end-->
+</aura:component>
